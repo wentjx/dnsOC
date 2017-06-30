@@ -51,7 +51,7 @@ function configRC()
         lines[last+1]=line
     end
     dat:close()
-    for key, value in pairs(lines) do
+    for _, value in pairs(lines) do
         local l=serial.unserialize("{"..value.."}")
         if l~=nil and  l["enabled"]~=nil then
             l=addeProgs(l)
