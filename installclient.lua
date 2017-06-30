@@ -10,7 +10,7 @@ function addeProgs(line)
         local found=false
         local i=1
         last=i
-        for key, value in pairs(line["enabled"]) do
+        for _, value in pairs(line["enabled"]) do
             if value==daemon then
                 found=true
             end
@@ -29,9 +29,9 @@ function configRC()
     local line=""
     local i=1
     local dat=io.open("/etc/rc.cfg", "r")
-    local newtext=""
+    local newtext
     local last=i
-    local last_line=""
+    local last_line
     repeat
         local c=dat:read(1)
         if c=="\n" then
@@ -50,7 +50,7 @@ function configRC()
     end
     dat:close()
 
-    for key, value in pairs(lines) do
+    for _, value in pairs(lines) do
         local l=serial.unserialize("{"..value.."}")
         if l~=nil and  l["enabled"]~=nil then
             l=addeProgs(l)

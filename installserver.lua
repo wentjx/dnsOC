@@ -31,7 +31,7 @@ function configRC()
     local line=""
     local i=1
     local dat=io.open("/etc/rc.cfg", "r")
-    local newtext=""
+    local newtext
     local last_line=""
     local last=1
     repeat
