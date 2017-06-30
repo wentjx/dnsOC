@@ -1,10 +1,6 @@
-local term=require("term")
 local file=require("filesystem")
 local serial=require("serialization")
-
 local autostart= {"dnsserver"}
-
-local process=require("process")
 local shell=require("shell")
 
 function addeProgs(line)

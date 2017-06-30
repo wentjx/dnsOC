@@ -9,9 +9,7 @@ local event=require("event")
 local liste={}
 local runing=false
 local config={}
-local net=require("network")
 local me=""
-modem.open(100)
 
 function cleanOld(name, addr)
     for k, v in pairs(liste) do
@@ -75,11 +73,11 @@ end
 
 function get(name, addr)
     local res=getAddr(name)
-    modem.send(addr, 100, "req", res, name)
+    modem.send(addr, config.port, "req", res, name)
 end
 
-function handler(event, me, from, port, distance, command, value)
-    if port==100 then
+function handler(_, _, from, port, _, command, value)
+    if port==config.port then
         if command~=null then
             if command=="set" then
                 register(value, from)
@@ -98,8 +96,8 @@ function printTable()
     end
 end
 
-function localGet(e,name, n)
-    addr=getAddr(name)
+function localGet(_,name, _)
+    local addr=getAddr(name)
     computer.pushSignal("dnsReq", addr, name)
 end
 
@@ -112,6 +110,7 @@ function start()
     me=modem.address
     os.sleep(1)
     loadConfig()
+    modem.open(config.port)
     if not getServerState() then
         load()
         event.listen("modem_message", handler)
@@ -121,9 +120,9 @@ function start()
         event.listen("dnsServerDrop", dnsDrop)
         event.listen("dnsGet", localGet)
         runing=true
-        print("DNS-Server auf "..me.." gestartet.")
+        print("DNS-Server starts at port:"..me..".")
     else
-        print("DNS-Server läuft bereits")
+        print("Sever runing already")
     end
 end
 
@@ -139,6 +138,7 @@ end
 
 function stop()
     runing=false
+    modem.close(config.port)
     event.ignore("modem_message", handler)
     event.ignore("dnsServerStop", stop)
     event.ignore("dnsServerPrintTable", printTable)
@@ -151,7 +151,7 @@ function stop()
 end
 
 if args[1]~=null then
-    if args[1]=="run" then
+    if args[1]=="start" then
         start()
     elseif args[1]=="print" then
         computer.pushSignal("dnsServerPrintTable")
@@ -164,9 +164,9 @@ if args[1]~=null then
         computer.pushSignal("dnsServerDrop")
     elseif args[1]=="status" then
         if getServerState() then
-            print("DNS läuft")
+            print("server runing")
         else
-            print("DNS läuft nicht")
+            print("server not runing")
         end
     end
 end
