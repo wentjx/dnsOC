@@ -38,7 +38,9 @@ function getServer()
 end
 
 function register()
-    modem.send(liste[config["dnsserver"]], config.port, "set", config["computername"])
+    if found then
+        modem.send(liste[config["dnsserver"]], config.port, "set", config["computername"])
+    end
 end
 
 function getingAnnonce(_, _, from, port, _, command, value)
@@ -106,6 +108,7 @@ function init()
         event.listen("modem_message", getingAnnonce)
     end
     event.listen("dnsClientStop", stop)
+    event.listen("dnsRegister", register)
     event.listen("dnsClientStatus", getState)
     event.ignore("dnsClientRestart", restart)
     if not config["server"] then
@@ -169,6 +172,12 @@ if args[1] ~= nil then
     elseif args[1] == "restart" then
         computer.pushSignal("dnsClientRestart")
     elseif args[1] == "status" then
-        computer.pushSignal("dnsClientRestart")
+        if isRuning() then
+           print("client runing and binded on "..liste[config["dnsserver"]])
+        else
+           print("client not runing")
+        end
+    elseif args[1] == "register" then
+        computer.pushSignal("dnsRegister")
     end
 end
