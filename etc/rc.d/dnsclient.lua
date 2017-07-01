@@ -1,4 +1,4 @@
-local version = 1.02
+local version = 1.03
 local args = { ... }
 local component = require("component")
 local computer = require("computer")
@@ -101,23 +101,25 @@ function nsDaemon(_, name, n)
 end
 
 function init()
-    modem.open(config.port)
     loadConfig()
-    if config.announces then
-        modem.open(config.announceport)
-        event.listen("modem_message", getingAnnonce)
-    end
-    event.listen("dnsClientStop", stop)
-    event.listen("dnsRegister", register)
-    event.listen("dnsClientStatus", getState)
-    event.ignore("dnsClientRestart", restart)
-    runing=true
     if not config["server"] then
+        modem.open(config.port)
+        if config.announces then
+            modem.open(config.announceport)
+            event.listen("modem_message", getingAnnonce)
+        end
+        event.listen("dnsClientStop", stop)
+        event.listen("dnsRegister", register)
+        event.listen("dnsClientStatus", getState)
+        event.ignore("dnsClientRestart", restart)
+        runing=true
         getServer()
         if found then
             register()
             event.listen("dnsGet", nsDaemon)
         end
+    else
+        print("It is a server already")
     end
 end
 

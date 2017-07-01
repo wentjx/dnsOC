@@ -2,7 +2,7 @@ local computer = require("computer")
 local event = require("event")
 local dns = {getTicks=function() return ((os.time() * 1000) / 60 / 60) - 6000 end}
 
-dns.version = 1.02
+dns.version = 1.03
 
 function dns.ns(name, n)
     local t1 = dns:getTicks()

@@ -1,4 +1,4 @@
-local version = 1.02
+local version = 1.03
 local args = { ... }
 local fs = require("filesystem")
 local serial = require("serialization")
