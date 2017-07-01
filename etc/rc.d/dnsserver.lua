@@ -46,13 +46,12 @@ function load()
         local file = io.open("/etc/dnsTable", "r")
         local text = file:read("*all")
         file:close()
-        liste = {}
         liste = serial.unserialize(text)
     end
 end
 
 function dnsSendAnnounce()
-    momdem.broadcast(config.announceport, "dnsAnnounce")
+    modem.broadcast(config.announceport, "dnsAnnounce")
 end
 
 function dnsDrop()
