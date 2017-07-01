@@ -111,6 +111,7 @@ function init()
     event.listen("dnsRegister", register)
     event.listen("dnsClientStatus", getState)
     event.ignore("dnsClientRestart", restart)
+    runing=true
     if not config["server"] then
         getServer()
         if found then
@@ -138,7 +139,7 @@ function isRuning()
 end
 
 function start()
-    if not isRuning then
+    if not isRuning() then
         init()
     else
         print("Client runing already")
@@ -160,6 +161,7 @@ function stop()
         modem.close(config.announceport)
         event.ignore("modem_message", getingAnnonce)
     end
+    runing=false
     liste = {}
     config = {}
 end
