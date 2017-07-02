@@ -5,8 +5,8 @@ function start()
     file:close()
     config = serial.unserialize(text)
     if config.server then
-        shell.execute("dnsserver run")
+        shell.execute("dnsserver start")
     else
-        shell.execute("dnsclient run")
+        shell.execute("dnsclient start")
     end
 end

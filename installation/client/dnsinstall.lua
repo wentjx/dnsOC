@@ -8,6 +8,9 @@ local newconfig={}
 local autostart = { "dnsservice" }
 local server=false
 
+shell.execute("dnsclient stop")
+shell.execute("dnsserver stop")
+
 function split(s, delimiter)
     result = {};
     for match in (s..delimiter):gmatch("(.-)"..delimiter) do
