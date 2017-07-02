@@ -107,15 +107,14 @@ else
               name[1]="ServerDNS1"
             end
             newconfig.computername=name[1]
-            newconfig.dnsserver=name[1]
-
         end
-        if  newconfig.dnsserver~="ServerDNS1" then
+        if  newconfig.computername~="ServerDNS1" then
             print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
         end
         os.sleep(1)
     end
 end
+newconfig.dnsserver=newconfig.computername
 if config and config.port then
 
 else
