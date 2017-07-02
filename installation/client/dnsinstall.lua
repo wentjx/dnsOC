@@ -32,7 +32,7 @@ function addeProgs(line)
             last = i
         end
         if not found then
-            line["enabled"][last](daemon)
+            line["enabled"][last]=daemon
         end
     end
     return line
