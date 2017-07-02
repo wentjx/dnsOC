@@ -148,5 +148,5 @@ if fs.exists("/home/.shrc.bck") then
    fs.rename("/home/.shrc.bck", "/home/.shrc")
    fs.remove("/usr/bin/dnsinstall.lua")
 end
-shell.execute("reboot")
+shell.execute("dnsserver start")
 

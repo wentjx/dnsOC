@@ -119,6 +119,7 @@ function start()
     if not getServerState() then
         me = modem.address
         modem.open(config.port)
+        modem.open(config.announceport)
         load()
         if config.announces then
             dnsSendAnnounce()
