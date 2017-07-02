@@ -96,7 +96,7 @@ else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
             term.write("Computername:")
-            local name=split(tostring(io.read()))
+            local name=split(tostring(io.read())," ")
             newconfig.computername=name[1]
         end
         print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
