@@ -59,7 +59,9 @@ function configRC()
             value = serial.serialize(l)
             value = string.sub(value, 2, #value - 1)
         end
-        if value~=nil then
+        if newtext==nill then
+            newtext = value "\n"
+        else
             newtext = newtext .. value .. "\n"
         end
     end

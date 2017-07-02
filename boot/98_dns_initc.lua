@@ -51,7 +51,6 @@ function configRC()
         lines[last + 1] = line
     end
     dat:close()
-
     for _, value in pairs(lines) do
         local l = serial.unserialize("{" .. value .. "}")
         if l ~= nil and l["enabled"] ~= nil then
@@ -59,7 +58,9 @@ function configRC()
             value = serial.serialize(l)
             value = string.sub(value, 2, #value - 1)
         end
-        if value~=nil then
+        if newtext==nill then
+            newtext = value "\n"
+        else
             newtext = newtext .. value .. "\n"
         end
     end
