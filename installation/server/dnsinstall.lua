@@ -106,7 +106,9 @@ else
             newconfig.dnsserver=name[1]
 
         end
-        print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
+        if  newconfig.dnsserver~="ServerDNS1" then
+            print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
+        end
         os.sleep(1)
     end
 end
