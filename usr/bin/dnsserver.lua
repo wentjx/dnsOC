@@ -90,7 +90,12 @@ function handler(_, _, from, port, _, command, value)
                 get(command, from)
             end
         end
+    elseif port==config.announceport then
+        if command "needDns" then
+            modem.send(from,config.announceport, "dnsAnnounce")
+        end
     end
+
 end
 
 function printTable()

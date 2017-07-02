@@ -96,7 +96,8 @@ else
     else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
-            term.write("Servername:")
+            print("U can press Enter to take dafault, or u take own name, but if have to edit /etc/dns.cfg (servername) on every client")
+            term.write("\nServername:")
             local name=split(tostring(io.read())," ")
             newconfig.computername=name[1]
         end

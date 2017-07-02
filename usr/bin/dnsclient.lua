@@ -33,7 +33,7 @@ function getServer()
         liste[config["dnsserver"]] = addr
         print("DNS:" .. addr)
     else
-        --error?!?!
+        modem.broadcast(config.announceport, "needDns")
     end
 end
 
