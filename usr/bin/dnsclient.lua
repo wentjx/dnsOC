@@ -31,7 +31,6 @@ function getServer()
     end
     if found then
         liste[config["dnsserver"]] = addr
-        print("DNS:" .. addr)
     else
         modem.broadcast(config.announceport, "needDns")
     end
