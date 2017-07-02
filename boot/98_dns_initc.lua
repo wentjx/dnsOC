@@ -1,5 +1,6 @@
 local version="1.03"
 local fs=require("filesystem")
+local serial = require("serialization")
 local term=require("term")
 local config={}
 local newconfig={}
@@ -19,7 +20,7 @@ function addeProgs(line)
             last = i
         end
         if not found then
-            line["enabled"].insert(daemon)
+            line["enabled"][last](daemon)
         end
     end
     return line
@@ -85,25 +86,26 @@ else
       newconfig.computername=newconfig.computername:gmatch("%S+")[1]
     end
 end
-newconfig.dnsserver=config.dnsserver
-if newconfig.dnsserver==nil then
+if config and config.dnsserver then
+    newconfig.dnsserver=config.dnsserver
+else
     newconfig.dnsserver="ServerDNS1"
 end
-newconfig.port=config.port
-if newconfig.port==nil then
-    newconfig.port=357
-end
-if newconfig.port==nil then
+if config and config.port then
+
+else
     newconfig.port=357
 end
 newconfig.server=server
 newconfig.version=version
-newconfig.announces=config.announces
-if newconfig.announces==nil then
+if config and config.announces then
+    newconfig.announces=config.announces
+else
     newconfig.announces=true
 end
-newconfig.announceport=config.announceport
-if newconfig.announceport==nil then
+if config and config.announceport then
+    newconfig.announceport=config.announceport
+else
     newconfig.announceport=358
 end
 local file = io.open("/etc/hostname", "w")
