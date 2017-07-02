@@ -59,7 +59,9 @@ function configRC()
             value = serial.serialize(l)
             value = string.sub(value, 2, #value - 1)
         end
-        newtext = newtext .. value .. "\n"
+        if value~=nil then
+            newtext = newtext .. value .. "\n"
+        end
     end
     dat = io.open("/etc/rc.cfg", "w")
     dat:write(newtext)
@@ -78,16 +80,18 @@ if fs.exists("/etc/hostname") then
     newconfig.computername = file:read("*all")
     file:close()
 else
-    newconfig.computername=config.computername
-    while  newconfig.computername==nil or newconfig.computername=="" do
-      term.clear()
-      term.write("Servername:")
-      newconfig.computername=io.read()
-      newconfig.computername=newconfig.computername:gmatch("%S+")[1]
-      newconfig.dnsserver= newconfig.computername
+    if config and config.computername then
+        newconfig.computername=config.computername
+    else
+        while  newconfig.computername==nil or newconfig.computername=="" do
+            term.clear()
+            term.write("Computername:")
+            newconfig.computername=io.read()
+            newconfig.computername=newconfig.computername:gmatch("%S+")[1]
+        end
+        print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
+        os.sleep(1)
     end
-    print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
-    os.sleep(1)
 end
 if config and config.dnsserver then
     newconfig.dnsserver=config.dnsserver
