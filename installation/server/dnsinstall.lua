@@ -99,16 +99,16 @@ else
             print("U can press Enter to take dafault, or u take own name, but if have to edit /etc/dns.cfg (servername) on every client")
             term.write("\nServername:")
             local name=split(tostring(io.read())," ")
+            if name[1]=="" and (name[2]==nil or name[2]=="") then
+              name[1]="ServerDNS1"
+            end
             newconfig.computername=name[1]
+            newconfig.dnsserver=name[1]
+
         end
         print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
         os.sleep(1)
     end
-end
-if config and config.dnsserver then
-    newconfig.dnsserver=config.dnsserver
-else
-    newconfig.dnsserver="ServerDNS1"
 end
 if config and config.port then
 
