@@ -38,7 +38,6 @@ end
 
 function register()
     if found then
-        print(config["dnsserver"], config.port, config["computername"])
         modem.send(liste[config["dnsserver"]], config.port, "set", config["computername"])
     end
 end
