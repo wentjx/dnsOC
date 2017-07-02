@@ -88,8 +88,10 @@ else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
             term.write("Computername:")
-            newconfig.computername=io.read()
-            newconfig.computername=newconfig.computername:gmatch("%S+")[1]
+            local name=io.read()
+            name=tostring(name)
+            name=gmatch("%S+")[1]
+            newconfig.computername=name:gmatch("%S+")[1]
         end
         print("pls change 'dnsserver' in '/etc/dns.cfg' on hosts to bind them")
         os.sleep(1)
