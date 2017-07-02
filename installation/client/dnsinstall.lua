@@ -110,7 +110,7 @@ else
     newconfig.dnsserver="ServerDNS1"
 end
 if config and config.port then
-
+    newconfig.port=config.port
 else
     newconfig.port=357
 end
