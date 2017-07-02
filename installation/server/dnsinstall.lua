@@ -2,6 +2,7 @@ local version="1.03"
 local fs=require("filesystem")
 local serial = require("serialization")
 local term=require("term")
+local shell=require("shell")
 local config={}
 local newconfig={}
 local autostart = { "dnsservice" }
@@ -140,4 +141,5 @@ if fs.exists("/home/.shrc.bck") then
    fs.rename("/home/.shrc.bck", "/home/.shrc")
    fs.remove("/usr/bin/dnsinstall.lua")
 end
+shell.execute("reboot")
 
