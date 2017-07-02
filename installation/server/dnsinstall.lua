@@ -95,7 +95,7 @@ else
     else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
-            term.write("Computername:")
+            term.write("Servername:")
             local name=split(tostring(io.read())," ")
             newconfig.computername=name[1]
         end
