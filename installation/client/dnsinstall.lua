@@ -129,4 +129,12 @@ local file = io.open("/etc/dns.cfg", "w")
 file:write(serial.serialize(newconfig))
 file:close()
 configRC()
+if fs.exists("/boot/98_dns_install.lua") then
+    fs.remove("/boot/98_dns_install.lua")
+end
+if fs.exists("/home/.shrc.bck") then
+    fs.remove("/home/.shrc")
+    fs.rename("/home/.shrc.bck", "/home/.shrc")
+    fs.remove("/usr/bin/dnsinstall.lua")
+end
 
