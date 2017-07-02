@@ -96,6 +96,7 @@ if fs.exists("/etc/hostname") then
 else
     if config and config.computername then
         newconfig.computername=config.computername
+        newconfig.dnsserver=config.computername
     else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
