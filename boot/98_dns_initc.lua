@@ -7,6 +7,14 @@ local newconfig={}
 local autostart = { "dnsservice" }
 local server=false
 
+function split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
 function addeProgs(line)
     for _, daemon in pairs(autostart) do
         local found = false
@@ -87,10 +95,8 @@ else
         while  newconfig.computername==nil or newconfig.computername=="" do
             term.clear()
             term.write("Computername:")
-            local name=io.read()
-            name=tostring(name)
-            name=gmatch("%S+")[1]
-            newconfig.computername=name:gmatch("%S+")[1]
+            local name=split(tostring(io.read()))
+            newconfig.computername=name[1]
         end
     end
 end
