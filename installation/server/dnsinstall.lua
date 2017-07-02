@@ -116,7 +116,7 @@ else
 end
 newconfig.dnsserver=newconfig.computername
 if config and config.port then
-
+    newconfig.port=config.port
 else
     newconfig.port=357
 end
