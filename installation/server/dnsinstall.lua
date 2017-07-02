@@ -90,7 +90,7 @@ if fs.exists("/etc/dns.cfg") then
     config = serial.unserialize(text)
 end
 if fs.exists("/etc/hostname") then
-    local file = io.open("/etc/dns.cfg")
+    local file = io.open("/etc/hostname")
     newconfig.computername = file:read("*all")
     file:close()
 else
